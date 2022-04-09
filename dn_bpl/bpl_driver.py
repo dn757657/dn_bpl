@@ -4,15 +4,15 @@ import pathlib
 import os
 import copy
 import pandas as pd
-from sqlalchemy import create_engine, insert, select
+from sqlalchemy import insert, select
 from sqlalchemy.orm import Session
-from db_struct import mapper_registry
-from db_struct import Account, Category, Tag, Txn, SplitTxn
-from statement_mappings import StatementFactory
+from .db_struct import Account, Category, Tag, Txn, SplitTxn
+from .statement_mappings import StatementFactory
+from.db_struct import BplModel
 
 # internal
 from dn_docoptutils import elim_apostrophes
-from classify import BankClassify
+from .classify import BankClassify
 
 # sys.tracebacklimit = 0
 # TODO revise usage to make actual sense
@@ -36,10 +36,7 @@ Arguments:
    
 """
 
-# init globals
 STORAGE_FP = 'C:\\Users\\Daniel\\Desktop\\ct_finance\\01_test\\'
-DB_NAME = 'test_db.db'
-DB_ENGINE = 'sqlite'
 
 # process docopt args
 args = docopt(usage)
@@ -47,16 +44,6 @@ args = docopt(usage)
 elim_apostrophes(args=args)
 print(args)
 print()
-
-
-# initialize database
-class BplModel:
-
-    def __init__(self, db_fp=STORAGE_FP + 'db\\'):
-
-        self.engine = create_engine(DB_ENGINE + ":///" + db_fp + DB_NAME, echo=True, future=True)
-
-        mapper_registry.metadata.create_all(self.engine)
 
 
 def split_txn(db,

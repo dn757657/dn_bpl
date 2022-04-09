@@ -1,4 +1,4 @@
-from sqlalchemy import Table, UniqueConstraint, Column, Integer, DateTime, Text, REAL, CheckConstraint, ForeignKey
+from sqlalchemy import Table, create_engine, UniqueConstraint, Column, Integer, DateTime, Text, REAL, CheckConstraint, ForeignKey
 from sqlalchemy.orm import relationship, registry
 
 mapper_registry = registry()
@@ -88,18 +88,16 @@ def table_object_by_name(name):
             continue
 
 
-# db_fp = 'C:\\Users\\Daniel\\Desktop\\ct_finance\\db\\'
-# db_name = 'test_db.db'
-# db_type = 'sqlite'
-# engine = create_engine(db_type + ":///" + db_fp + db_name, echo=True, future=True)
-# mapper_registry.metadata.create_all(engine)
-# conn = engine.connect()
-# session = Session(engine)
-#
-# # stmt = select(Account).where(Account.id == 1)
-# stmt = select(Account)
-# stmt = stmt.where(Account.id == '1')
-# print(stmt)
-#
-# for row in conn.execute(stmt):
-#     print(row)
+DB_NAME = 'test_db.db'
+DB_ENGINE = 'sqlite'
+STORAGE_FP = 'C:\\Users\\Daniel\\Desktop\\ct_finance\\01_test\\'
+
+
+# initialize database
+class BplModel:
+
+    def __init__(self, db_fp=STORAGE_FP + 'db\\'):
+
+        self.engine = create_engine(DB_ENGINE + ":///" + db_fp + DB_NAME, echo=True, future=True)
+
+        mapper_registry.metadata.create_all(self.engine)
