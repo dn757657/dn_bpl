@@ -1,6 +1,6 @@
 from distutils.core import setup
 
-version = '0.0.4'
+version = '0.0.5'
 
 setup(name='dn_bpl',
       version=version,
@@ -14,12 +14,13 @@ setup(name='dn_bpl',
       keywords=['sql', 'banking'],
       install_requires=[
             'python-dateutil~=2.8.2',
-            'pandas~=1.3.5',
+            'pandas~=1.4.2',
             'textblob~=0.17.1',
             'colorama~=0.4.4',
             'tabulate~=0.8.9',
             'SQLAlchemy~=1.4.32',
             'docopt~=0.6.2',
+            'dn757657_utils~=0.0.3',
       ],
       classifiers=[
             'Development Status :: 3 - Alpha',
